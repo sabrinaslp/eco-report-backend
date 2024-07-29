@@ -1,5 +1,6 @@
-package com.api.ecoreport.entities;
+package com.api.ecoreport.model;
 
+import com.api.ecoreport.model.enums.ReportStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +21,12 @@ public class Report {
     private String photoUrl;
 
     private String zipCode;
+
+    @Enumerated(EnumType.STRING)
+    private ReportStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Account account;
+
 }
