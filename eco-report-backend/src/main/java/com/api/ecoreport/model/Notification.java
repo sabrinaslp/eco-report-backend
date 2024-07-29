@@ -29,6 +29,6 @@ public class Notification {
 
     private LocalDateTime timestamp;
 
-    private boolean read;
+    private boolean isRead;
 
 }

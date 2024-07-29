@@ -1,5 +1,6 @@
 package com.api.ecoreport.model;
 
+import com.api.ecoreport.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,9 @@ public class Account {
     private String name;
 
     private String neighborhood;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
