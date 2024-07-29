@@ -1,4 +1,4 @@
-package com.api.ecoreport.eco_report_backend;
+package com.api.ecoreport;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

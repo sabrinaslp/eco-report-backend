@@ -1,4 +1,4 @@
-package com.api.ecoreport.eco_report_backend;
+package com.api.ecoreport;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
