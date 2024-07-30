@@ -24,8 +24,8 @@ public class Notification {
     private NotificationType type;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private LocalDateTime timestamp;
 

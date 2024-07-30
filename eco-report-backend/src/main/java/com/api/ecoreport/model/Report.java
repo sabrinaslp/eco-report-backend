@@ -27,6 +27,6 @@ public class Report {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Account account;
+    private User user;
 
 }
