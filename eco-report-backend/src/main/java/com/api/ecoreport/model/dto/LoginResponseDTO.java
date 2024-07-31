@@ -1,4 +1,4 @@
 package com.api.ecoreport.model.dto;
 
-public record LoginResponseDTO(String token) {
+public record LoginResponseDTO(String name, String token) {
 }

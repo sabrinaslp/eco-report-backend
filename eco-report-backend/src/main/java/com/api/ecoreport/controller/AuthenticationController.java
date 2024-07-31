@@ -9,12 +9,13 @@ import com.api.ecoreport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -29,25 +30,39 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO data) {
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        User user = this.repository.findByEmail(data.email()).orElseThrow(() -> new RuntimeException("User not found"));
+        if (passwordEncoder.matches(data.password(), user.getPassword()))  {
+            String token = this.tokenService.generateToken(user);
+            return ResponseEntity.ok(new LoginResponseDTO(user.getName(), token));
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterDTO data){
-        if(this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity register(@RequestBody RegisterDTO data) {
+        Optional<User> user = this.repository.findByEmail(data.email());
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.email(), encryptedPassword, data.name(), data.neighborhood(), data.role());
+        if (user.isEmpty()) {
+            User newUser = new User();
 
-        this.repository.save(newUser);
+            newUser.setPassword(passwordEncoder.encode(data.password()));
+            newUser.setEmail(data.email());
+            newUser.setName(data.name());
+            newUser.setNeighborhood(data.neighborhood());
+            newUser.setRole(data.role());
 
-        return ResponseEntity.ok().build();
+            this.repository.save(newUser);
+
+            String token = this.tokenService.generateToken(newUser);
+            return ResponseEntity.ok(new LoginResponseDTO(newUser.getName(), token));
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 
 }
