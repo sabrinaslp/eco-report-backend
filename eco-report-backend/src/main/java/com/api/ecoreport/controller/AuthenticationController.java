@@ -1,7 +1,9 @@
 package com.api.ecoreport.controller;
 
+import com.api.ecoreport.infra.security.TokenService;
 import com.api.ecoreport.model.User;
 import com.api.ecoreport.model.dto.AuthenticationDTO;
+import com.api.ecoreport.model.dto.LoginResponseDTO;
 import com.api.ecoreport.model.dto.RegisterDTO;
 import com.api.ecoreport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,16 @@ public class AuthenticationController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")

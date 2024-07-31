@@ -22,15 +22,15 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
-            String token = JWT.create()
+            return JWT.create()
                     .withIssuer("login-auth-api")
                     .withSubject(user.getEmail())
                     .withExpiresAt(this.generateExpirationDate())
                     .sign(algorithm);
-            return token;
 
-        } catch (JWTCreationException exception){}
-            throw new RuntimeException("Error durante a autenticação");
+        } catch (JWTCreationException exception){
+            throw new RuntimeException("Error durante a criação do token", exception);
+        }
     }
 
     public String validateToken(String token) {
@@ -42,7 +42,6 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-
         } catch (JWTVerificationException exception) {
             return null;
         }
