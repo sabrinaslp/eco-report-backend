@@ -23,4 +23,15 @@ public class ViewController {
         }
         return "home";
     }
+
+    @GetMapping("/admin/dashboard")
+    public String showAdminPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            repository.findByEmail(email).ifPresent(user -> model.addAttribute("name", user.getName()));
+        }
+        return "admin";
+    }
+
 }

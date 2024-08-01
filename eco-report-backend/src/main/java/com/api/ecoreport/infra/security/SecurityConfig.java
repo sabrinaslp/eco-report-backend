@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +27,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .defaultSuccessUrl("/home", true)
+                        .successHandler(customAuthenticationSuccessHandler()) // Usa o handler personalizado
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
@@ -38,9 +39,23 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .requestMatchers("/home").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // Configura o acesso baseado em papel
                         .anyRequest().authenticated()
                 )
                 .build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            String role = authentication.getAuthorities().iterator().next().getAuthority(); // Obtém o papel do usuário
+            System.out.println("User role: " + role);
+            if (role.equals("ROLE_ADMIN")) {
+                response.sendRedirect("/admin/dashboard");
+            } else {
+                response.sendRedirect("/home");
+            }
+        };
     }
 
     @Bean
