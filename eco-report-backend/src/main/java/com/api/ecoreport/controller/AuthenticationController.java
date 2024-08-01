@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,26 +33,12 @@ public class AuthenticationController {
         if (error != null) {
             model.addAttribute("error", "Invalid credentials");
         }
-        return "login"; // Nome da página HTML para login
+        return "login";
     }
-
-//    @PostMapping("/login")
-//    public String login(@RequestParam String email, @RequestParam String password, Model model) {
-//        try {
-//            Authentication authentication = authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(email, password)
-//            );
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            return "redirect:/home"; // Nome da página HTML para home
-//        } catch (AuthenticationException e) {
-//            model.addAttribute("error", "Invalid credentials");
-//            return "redirect:/auth/login?error=true"; // Retorna para a página de login em caso de erro
-//        }
-//    }
 
     @GetMapping("/register")
     public String showRegisterPage() {
-        return "register"; // Nome da página HTML para registro
+        return "register";
     }
 
     @PostMapping("/register")
@@ -79,6 +64,6 @@ public class AuthenticationController {
         }
 
         model.addAttribute("error", "Email already registered");
-        return "register"; // Retorna para a página de registro em caso de erro
+        return "register";
     }
 }
