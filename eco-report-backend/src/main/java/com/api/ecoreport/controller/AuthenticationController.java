@@ -1,68 +1,84 @@
 package com.api.ecoreport.controller;
 
-import com.api.ecoreport.infra.security.TokenService;
 import com.api.ecoreport.model.User;
-import com.api.ecoreport.model.dto.AuthenticationDTO;
-import com.api.ecoreport.model.dto.LoginResponseDTO;
-import com.api.ecoreport.model.dto.RegisterDTO;
+import com.api.ecoreport.model.enums.UserRole;
 import com.api.ecoreport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/auth")
 public class AuthenticationController {
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private UserRepository repository;
 
     @Autowired
-    private TokenService tokenService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenticationDTO data) {
-        User user = this.repository.findByEmail(data.email()).orElseThrow(() -> new RuntimeException("User not found"));
-        if (passwordEncoder.matches(data.password(), user.getPassword()))  {
-            String token = this.tokenService.generateToken(user);
-            return ResponseEntity.ok(new LoginResponseDTO(user.getName(), token));
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @GetMapping("/login")
+    public String showLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Invalid credentials");
         }
-        return ResponseEntity.badRequest().build();
+        return "login"; // Nome da página HTML para login
+    }
+
+//    @PostMapping("/login")
+//    public String login(@RequestParam String email, @RequestParam String password, Model model) {
+//        try {
+//            Authentication authentication = authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(email, password)
+//            );
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            return "redirect:/home"; // Nome da página HTML para home
+//        } catch (AuthenticationException e) {
+//            model.addAttribute("error", "Invalid credentials");
+//            return "redirect:/auth/login?error=true"; // Retorna para a página de login em caso de erro
+//        }
+//    }
+
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register"; // Nome da página HTML para registro
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterDTO data) {
-        Optional<User> user = this.repository.findByEmail(data.email());
+    public String register(@RequestParam String email, @RequestParam String password, @RequestParam String name,
+                           @RequestParam String neighborhood, @RequestParam String role, Model model) {
+        Optional<User> user = this.repository.findByEmail(email);
 
         if (user.isEmpty()) {
             User newUser = new User();
-
-            newUser.setPassword(passwordEncoder.encode(data.password()));
-            newUser.setEmail(data.email());
-            newUser.setName(data.name());
-            newUser.setNeighborhood(data.neighborhood());
-            newUser.setRole(data.role());
+            newUser.setPassword(passwordEncoder.encode(password));
+            newUser.setEmail(email);
+            newUser.setName(name);
+            newUser.setNeighborhood(neighborhood);
+            newUser.setRole(UserRole.valueOf(role));
 
             this.repository.save(newUser);
 
-            String token = this.tokenService.generateToken(newUser);
-            return ResponseEntity.ok(new LoginResponseDTO(newUser.getName(), token));
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(email, password)
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return "redirect:/home"; // Nome da página HTML para home
         }
 
-        return ResponseEntity.badRequest().build();
+        model.addAttribute("error", "Email already registered");
+        return "register"; // Retorna para a página de registro em caso de erro
     }
-
 }
