@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/css/**", "/assets/**").permitAll()
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .requestMatchers("/home").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Configura o acesso baseado em papel

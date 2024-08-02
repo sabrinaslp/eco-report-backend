@@ -47,6 +47,10 @@ h1 {
     justify-content: center;
 }
 
+.form-control {
+    font-family: "Inter",  sans-serif;;
+}
+
 .login-form h1 {
     margin-bottom: 20px;
 }
@@ -80,6 +84,7 @@ h1 {
 .btn {
     width: 100%;
     margin-bottom: 10px;
+    font-family: "Inter",  sans-serif;;
 }
 
 .form-label {
