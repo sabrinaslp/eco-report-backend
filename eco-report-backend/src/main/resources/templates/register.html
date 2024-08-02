@@ -7,7 +7,7 @@
 <h1>Register</h1>
 <form th:action="@{/auth/register}" method="post">
     <div>
-        <label>Name:</label>
+        <label>Nome:</label>
         <input type="text" name="name" />
     </div>
     <div>
@@ -15,19 +15,19 @@
         <input type="email" name="email" />
     </div>
     <div>
-        <label>Password:</label>
+        <label>Senha:</label>
         <input type="password" name="password" />
     </div>
     <div>
-        <label>Neighborhood:</label>
+        <label>Bairro:</label>
         <input type="text" name="neighborhood" />
     </div>
     <div>
-        <label>Role:</label>
+        <label>Tipo:</label>
         <input type="text" name="role" />
     </div>
     <div>
-        <button type="submit">Register</button>
+        <button type="submit">Registrar</button>
     </div>
 </form>
 <div th:if="${error}">
