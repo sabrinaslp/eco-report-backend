@@ -91,6 +91,26 @@ h1 {
     display: none;
 }
 
+.error-message {
+    display: flex;
+    align-items: center; /* Alinha verticalmente o ícone e o texto */
+    background-color: #f8d7da; /* Adiciona uma cor de fundo clara para o alerta */
+    padding: 10px; /* Adiciona padding para separar o conteúdo das bordas */
+    border-radius: 5px; /* Adiciona bordas arredondadas */
+}
+
+.error-icon {
+    font-size: 24px; /* Ajusta o tamanho do ícone */
+    color: #dc3545; /* Cor do ícone para combinar com o alerta */
+}
+
+.text-danger {
+    margin: 0; /* Remove a margem padrão do parágrafo */
+    margin-left: 10px; /* Adiciona um espaço entre o ícone e o texto */
+}
+
+
+
 @media (max-width: 768px) {
     .login-container {
         flex-direction: column;

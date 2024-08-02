@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .successHandler(customAuthenticationSuccessHandler()) // Usa o handler personalizado
+                        .successHandler(customAuthenticationSuccessHandler())
                         .failureUrl("/auth/login?error=true")
                         .permitAll()
                 )
@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/assets/**").permitAll()
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .requestMatchers("/home").authenticated()
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Configura o acesso baseado em papel
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .build();
@@ -49,7 +49,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
         return (request, response, authentication) -> {
-            String role = authentication.getAuthorities().iterator().next().getAuthority(); // Obtém o papel do usuário
+            String role = authentication.getAuthorities().iterator().next().getAuthority();
             System.out.println("User role: " + role);
             if (role.equals("ROLE_ADMIN")) {
                 response.sendRedirect("/admin/dashboard");
