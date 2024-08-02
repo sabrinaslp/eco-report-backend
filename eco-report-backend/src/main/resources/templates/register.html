@@ -1,37 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register</title>
+    <title>EcoReport - Registro de Conta</title>
+    <link rel="icon" th:href="@{/assets/favicon.png}" type="image/x-icon">
+    <!-- link bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- link css -->
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <!-- FontAwesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 </head>
 <body>
-<h1>Register</h1>
-<form th:action="@{/auth/register}" method="post">
-    <div>
-        <label>Nome:</label>
-        <input type="text" name="name" />
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="outer-container">
+                <div class="row login-container">
+                    <div class="col-12 col-md-6 login-form">
+                        <h1>Registre sua conta</h1>
+                        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-3 mb-3"
+                             role="alert">
+                            <strong>Erro!</strong> <span th:text="${error}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/auth/register}" method="post">
+                            <div class="mb-3 input-group">
+                                <span class="input-group-text"><span
+                                        class="material-symbols-outlined">mail</span></span>
+                                <input type="text" class="form-control" id="email" name="username"
+                                       placeholder="E-mail" required/>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <span class="input-group-text"><span
+                                        class="material-symbols-outlined">lock</span></span>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="Senha" required/>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <span class="input-group-text"><span
+                                        class="material-symbols-outlined">person</span></span>
+                                <input type="text" class="form-control" id="name" name="name"
+                                       placeholder="Nome" required/>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <span class="input-group-text"><span
+                                        class="material-symbols-outlined">location_city</span></span>
+                                <input type="text" class="form-control" id="neighborhood" name="neighborhood"
+                                       placeholder="Bairro" required/>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                                <a href="/auth/login" class="btn btn-secondary">Voltar</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-6 login-image-container">
+                        <img th:src="@{/assets/img-home.png}" alt="Login Image" class="login-image">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label>Email:</label>
-        <input type="email" name="email" />
-    </div>
-    <div>
-        <label>Senha:</label>
-        <input type="password" name="password" />
-    </div>
-    <div>
-        <label>Bairro:</label>
-        <input type="text" name="neighborhood" />
-    </div>
-    <div>
-        <label>Tipo:</label>
-        <input type="text" name="role" />
-    </div>
-    <div>
-        <button type="submit">Registrar</button>
-    </div>
-</form>
-<div th:if="${error}">
-    <p th:text="${error}"></p>
 </div>
+
+<!-- link bootstrap js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
