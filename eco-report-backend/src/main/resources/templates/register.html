@@ -28,7 +28,7 @@
                             <div class="mb-3 input-group">
                                 <span class="input-group-text"><span
                                         class="material-symbols-outlined">mail</span></span>
-                                <input type="text" class="form-control" id="email" name="username"
+                                <input type="text" class="form-control" id="email" name="email"
                                        placeholder="E-mail" required/>
                             </div>
                             <div class="mb-3 input-group">
@@ -48,6 +48,15 @@
                                         class="material-symbols-outlined">location_city</span></span>
                                 <input type="text" class="form-control" id="neighborhood" name="neighborhood"
                                        placeholder="Bairro" required/>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <span class="input-group-text"><span
+                                        class="material-symbols-outlined">key</span></span>
+                                <select class="form-select" id="role" name="role" required>
+                                    <option value="" disabled selected>Selecione sua função:</option>
+                                    <option value="USER">Usuário</option>
+                                    <option value="ADMIN">Administrador</option>
+                                </select>
                             </div>
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary">Registrar</button>

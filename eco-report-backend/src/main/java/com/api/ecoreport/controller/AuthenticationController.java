@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class AuthenticationController {
     @GetMapping("/login")
     public String showLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) {
-            model.addAttribute("error", "Invalid credentials");
+            model.addAttribute("error", "Credenciais inválidas.");
         }
         return "login";
     }
@@ -43,7 +44,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String register(@RequestParam String email, @RequestParam String password, @RequestParam String name,
-                           @RequestParam String neighborhood, @RequestParam String role, Model model) {
+                           @RequestParam String neighborhood, @RequestParam String role, RedirectAttributes redirectAttributes) {
         Optional<User> user = this.repository.findByEmail(email);
 
         if (user.isEmpty()) {
@@ -60,10 +61,12 @@ public class AuthenticationController {
                     new UsernamePasswordAuthenticationToken(email, password)
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            return "redirect:/home"; // Nome da página HTML para home
+
+            redirectAttributes.addFlashAttribute("success", "Faça login para continuar.");
+            return "redirect:/auth/login";
         }
 
-        model.addAttribute("error", "Email already registered");
+        redirectAttributes.addFlashAttribute("error", "Email already registered");
         return "register";
     }
 }

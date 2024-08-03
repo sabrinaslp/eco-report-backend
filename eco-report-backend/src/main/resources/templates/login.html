@@ -19,6 +19,11 @@
                 <div class="row login-container">
                     <div class="col-12 col-md-6 login-form">
                         <h1>Olá!</h1>
+                        <div th:if="${success}" class="alert alert-success alert-dismissible fade show mt-3 mb-3"
+                             role="alert">
+                            <strong>Conta criada com sucesso.</strong> <span th:text="${success}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-3 mb-3"
                              role="alert">
                             <strong>Erro!</strong> <span th:text="${error}"></span>
