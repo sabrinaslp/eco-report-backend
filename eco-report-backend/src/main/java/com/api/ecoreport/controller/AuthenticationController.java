@@ -66,7 +66,7 @@ public class AuthenticationController {
             return "redirect:/auth/login";
         }
 
-        redirectAttributes.addFlashAttribute("error", "Email already registered");
+        redirectAttributes.addFlashAttribute("error", "Email já está registrado.");
         return "register";
     }
 }

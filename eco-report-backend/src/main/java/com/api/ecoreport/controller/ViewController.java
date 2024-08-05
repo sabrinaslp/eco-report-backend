@@ -19,7 +19,10 @@ public class ViewController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
-            repository.findByEmail(email).ifPresent(user -> model.addAttribute("name", user.getName()));
+            repository.findByEmail(email).ifPresent(user -> {
+                model.addAttribute("name", user.getName());
+                model.addAttribute("neighborhood", user.getNeighborhood());
+            });
         }
         return "home";
     }
