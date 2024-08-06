@@ -37,4 +37,9 @@ public class ViewController {
         return "admin";
     }
 
+    @GetMapping("/report")
+    public String showReportPage(Model model) {
+        return "report";
+    }
+
 }

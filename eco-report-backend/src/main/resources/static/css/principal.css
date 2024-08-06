@@ -48,7 +48,7 @@ h1 {
 }
 
 .form-control {
-    font-family: "Inter",  sans-serif;;
+    font-family: "Inter", sans-serif;
 }
 
 .login-form h1 {
@@ -84,16 +84,12 @@ h1 {
 .btn {
     width: 100%;
     margin-bottom: 10px;
-    font-family: "Inter",  sans-serif;;
+    font-family: "Inter", sans-serif;
 }
 
 .form-label {
     display: none;
 }
-
-/*.outer-container {*/
-/*    position: relative;*/
-/*}*/
 
 .logout-btn {
     position: absolute;
@@ -101,6 +97,18 @@ h1 {
     margin-right: 20px;
 }
 
+.back-btn {
+    position: absolute;
+    top: 5px;
+    margin-right: 20px;
+}
+
+.denuncias-container {
+    background-color: #EEEEEE;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
 
 @media (max-width: 768px) {
     .login-container {

@@ -40,6 +40,13 @@
         .outer-container {
             position: relative;
         }
+
+        .denuncias-container {
+            background-color: #EEEEEE;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
     </style>
     <script>
         function removeNotification() {
@@ -55,14 +62,18 @@
                 <div class="row login-container">
                     <div class="col-12 col-md-6 login-form">
                         <h1>Olá, <span th:text="${name}"></span>!</h1>
-                        <div class="d-grid gap-2">
-                            <a href="/auth/report" class="btn btn-secondary">Relatar descarte indevido</a>
+                        <div th:if="${success}" class="alert alert-success alert-dismissible fade show mt-3 mb-3" role="alert">
+                            <span th:text="${success}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <div class="d-grid gap-2">
-                            <a href="/auth/history" class="btn btn-secondary">Histórico de denúncias</a>
+                            <a href="/report" class="btn btn-secondary">Relatar descarte indevido</a>
                         </div>
                         <div class="d-grid gap-2">
-                            <a href="/auth/info" class="btn btn-secondary">Mais informações</a>
+                            <a href="/history" class="btn btn-secondary">Histórico de denúncias</a>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="/info" class="btn btn-secondary">Mais informações</a>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 login-image-container text-center">
@@ -78,7 +89,7 @@
                             <div class="mt-3 text-center">
                                 <h3 th:text="${name}"></h3>
                                 <h6 th:text="${neighborhood}"></h6>
-                                <p>Denúncias realizadas: <span th:text="${denuncias}"></span></p>
+                                <p class="denuncias-container">Denúncias realizadas: 00 <span th:text="${denuncias}"></span></p>
                             </div>
                         </div>
                     </div>
