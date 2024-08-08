@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,11 +36,10 @@ public class ReportController {
             user = userRepository.findByEmail(email).orElse(null);
 
             if (user != null) {
-                // Set the userId if needed in the redirect attributes
                 redirectAttributes.addFlashAttribute("userId", user.getId());
             } else {
                 redirectAttributes.addFlashAttribute("message", "Usuário não encontrado.");
-                return "redirect:/error"; // Redireciona para uma página de erro se o usuário não for encontrado
+                return "redirect:/error";
             }
         }
 
@@ -56,6 +54,6 @@ public class ReportController {
 
         redirectAttributes.addFlashAttribute("success", "Você realizou a denúncia com sucesso!");
 
-        return "redirect:/home"; // Redireciona para a página inicial
+        return "redirect:/home";
     }
 }
