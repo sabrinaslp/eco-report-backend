@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>EcoReport - Histórico</title>
+    <link rel="icon" th:href="@{/assets/favicon.png}" type="image/x-icon">
+    <!-- link bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- link css -->
+    <link rel="stylesheet" th:href="@{/css/principal.css}">
+    <!-- FontAwesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style>
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .outer-container {
+            position: relative;
+        }
+        .img-preview {
+            max-width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .valid-icon {
+            color: green;
+            margin-left: 30px;
+        }
+        .table td, .table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="outer-container">
+                <div class="row login-container">
+                    <div class="col-12 col-md-12 login-form">
+                        <h1>Histórico de denúncias</h1>
+
+                        <!-- Lista de denúncias -->
+                        <table class="table table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Detalhes</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="denuncia : ${denuncias}">
+                                <td th:text="${denuncia.description}"></td>
+                                <td th:text="${#strings.equals(denuncia.status, 'OPEN') ? 'Aberto' : #strings.equals(denuncia.status, 'IN_PROGRESS') ? 'Em progresso' : #strings.equals(denuncia.status, 'RESOLVED') ? 'Resolvido' : #strings.equals(denuncia.status, 'CANCELLED') ? 'Cancelado' : ''}"></td>
+                                <td>
+                                    <button class="btn btn-info" th:attr="data-bs-target='#modalVisualizar' + ${denuncia.id}" data-bs-toggle="modal">Visualizar</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Modals para visualizar denúncias -->
+                        <div th:each="denuncia : ${denuncias}">
+                            <div class="modal fade" th:id="'modalVisualizar' + ${denuncia.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Detalhes da Denúncia</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>Descrição:</strong> <span th:text="${denuncia.description}"></span></p>
+                                            <p><strong>Status:</strong> <span th:text="${#strings.equals(denuncia.status, 'OPEN') ? 'Aberto' : #strings.equals(denuncia.status, 'IN_PROGRESS') ? 'Em progresso' : #strings.equals(denuncia.status, 'RESOLVED') ? 'Resolvido' : #strings.equals(denuncia.status, 'CANCELLED') ? 'Cancelado' : ''}"></span></p>
+                                            <p><strong>CEP:</strong> <span th:text="${denuncia.zipCode}"></span></p>
+                                            <p><strong>URL da Foto:</strong> <a th:href="${denuncia.photoUrl}" target="_blank" th:text="${denuncia.photoUrl}"></a></p>
+                                            <img th:src="${denuncia.photoUrl}" class="img-fluid"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form th:action="@{/home}" method="get" class="back-btn">
+                    <button type="submit" class="btn btn-warning" style="margin-top: 20px;">Voltar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
