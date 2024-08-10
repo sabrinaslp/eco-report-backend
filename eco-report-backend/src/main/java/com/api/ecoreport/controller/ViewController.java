@@ -67,4 +67,9 @@ public class ViewController {
         return "history";
     }
 
+    @GetMapping("/info")
+    public String showInfoPage() {
+        return "info";
+    }
+
 }

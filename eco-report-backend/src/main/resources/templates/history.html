@@ -32,6 +32,12 @@
             text-align: center;
             vertical-align: middle;
         }
+        .btn-small {
+            font-size: 1rem; /* Tamanho do texto menor */
+            padding: 0.25rem 0.5rem; /* Ajusta o preenchimento do botão */
+            width: 100px; /* Define uma largura fixa menor */
+            white-space: nowrap; /* Evita quebra de linha no botão */
+        }
     </style>
 </head>
 <body>
@@ -57,7 +63,7 @@
                                 <td th:text="${denuncia.description}"></td>
                                 <td th:text="${#strings.equals(denuncia.status, 'OPEN') ? 'Aberto' : #strings.equals(denuncia.status, 'IN_PROGRESS') ? 'Em progresso' : #strings.equals(denuncia.status, 'RESOLVED') ? 'Resolvido' : #strings.equals(denuncia.status, 'CANCELLED') ? 'Cancelado' : ''}"></td>
                                 <td>
-                                    <button class="btn btn-info" th:attr="data-bs-target='#modalVisualizar' + ${denuncia.id}" data-bs-toggle="modal">Visualizar</button>
+                                    <button class="btn btn-info btn-small" th:attr="data-bs-target='#modalVisualizar' + ${denuncia.id}" data-bs-toggle="modal">Visualizar</button>
                                 </td>
                             </tr>
                             </tbody>
