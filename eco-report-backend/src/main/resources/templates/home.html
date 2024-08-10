@@ -47,6 +47,26 @@
             border-radius: 5px;
             display: inline-block;
         }
+
+        /* Estilos ajustados para aproximar a imagem do nome */
+        .login-image-container img {
+            margin-bottom: -10px; /* Reduz a distância entre a imagem e o nome */
+            width: 150px;
+            height: 150px;
+        }
+
+        .login-image-container h3 {
+            margin-top: 10px; /* Ajusta a distância entre a imagem e o nome */
+            margin-bottom: 0; /* Remove margem inferior */
+        }
+
+        .login-image-container h6 {
+            margin-top: 5px; /* Ajusta a distância entre o nome e o bairro */
+        }
+
+        .login-image-container .denuncias-container {
+            margin-top: 10px; /* Ajusta a distância entre o bairro e o número de denúncias */
+        }
     </style>
     <script>
         function removeNotification() {
@@ -79,19 +99,18 @@
                     </div>
                     <div class="col-12 col-md-6 login-image-container text-center">
                         <div class="d-flex flex-column align-items-center position-relative">
-                            <img th:src="@{/assets/woman.png}" alt="Profile Picture"
-                                 class="rounded-circle img-fluid"
-                                 style="border: 2px solid #3A5A40; width: 150px; height: 150px;">
+                            <img th:src="@{/assets/user-icon.png}" alt="Profile Picture"
+                                 class="rounded-circle img-fluid">
                             <span class="material-symbols-outlined notification-icon"
                                   onclick="removeNotification();">
                                 notifications
                                 <span id="notification-badge" class="notification-badge"></span>
                             </span>
-                            <div class="mt-3 text-center">
+                            <div class="mt-2 text-center">
                                 <h3 th:text="${name}"></h3>
                                 <h6 th:text="${neighborhood}"></h6>
-                                <p class="denuncias-container">Denúncias realizadas: 00 <span
-                                        th:text="${denuncias}"></span></p>
+                                <p class="denuncias-container">Denúncias realizadas: <span
+                                        th:text="${totalDenuncias}"></span></p>
                             </div>
                         </div>
                     </div>

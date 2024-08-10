@@ -32,6 +32,9 @@ public class ViewController {
             userRepository.findByEmail(email).ifPresent(user -> {
                 model.addAttribute("name", user.getName());
                 model.addAttribute("neighborhood", user.getNeighborhood());
+
+                List<Report> denuncias = reportRepository.findByUserId(user.getId());
+                model.addAttribute("totalDenuncias", denuncias.size());
             });
         }
         return "home";
