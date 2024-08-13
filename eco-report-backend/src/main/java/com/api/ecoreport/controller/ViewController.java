@@ -67,7 +67,7 @@ public class ViewController {
             model.addAttribute("denuncias", denuncias);
         }
 
-        return "history";
+        return "report-history";
     }
 
     @GetMapping("/info")

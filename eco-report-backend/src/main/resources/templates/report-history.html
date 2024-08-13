@@ -16,22 +16,27 @@
             top: 10px;
             right: 10px;
         }
+
         .outer-container {
             position: relative;
         }
+
         .img-preview {
             max-width: 100%;
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
         .valid-icon {
             color: green;
             margin-left: 30px;
         }
+
         .table td, .table th {
             text-align: center;
             vertical-align: middle;
         }
+
         .btn-small {
             font-size: 1rem; /* Tamanho do texto menor */
             padding: 0.25rem 0.5rem; /* Ajusta o preenchimento do botão */
@@ -63,7 +68,10 @@
                                 <td th:text="${denuncia.description}"></td>
                                 <td th:text="${#strings.equals(denuncia.status, 'OPEN') ? 'Aberto' : #strings.equals(denuncia.status, 'IN_PROGRESS') ? 'Em progresso' : #strings.equals(denuncia.status, 'RESOLVED') ? 'Resolvido' : #strings.equals(denuncia.status, 'CANCELLED') ? 'Cancelado' : ''}"></td>
                                 <td>
-                                    <button class="btn btn-info btn-small" th:attr="data-bs-target='#modalVisualizar' + ${denuncia.id}" data-bs-toggle="modal">Visualizar</button>
+                                    <button class="btn btn-info btn-small"
+                                            th:attr="data-bs-target='#modalVisualizar' + ${denuncia.id}"
+                                            data-bs-toggle="modal">Visualizar
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>
@@ -71,22 +79,31 @@
 
                         <!-- Modals para visualizar denúncias -->
                         <div th:each="denuncia : ${denuncias}">
-                            <div class="modal fade" th:id="'modalVisualizar' + ${denuncia.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="'modalVisualizar' + ${denuncia.id}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Detalhes da Denúncia</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p><strong>Descrição:</strong> <span th:text="${denuncia.description}"></span></p>
-                                            <p><strong>Status:</strong> <span th:text="${#strings.equals(denuncia.status, 'OPEN') ? 'Aberto' : #strings.equals(denuncia.status, 'IN_PROGRESS') ? 'Em progresso' : #strings.equals(denuncia.status, 'RESOLVED') ? 'Resolvido' : #strings.equals(denuncia.status, 'CANCELLED') ? 'Cancelado' : ''}"></span></p>
+                                            <p><strong>Descrição:</strong> <span
+                                                    th:text="${denuncia.description}"></span></p>
+                                            <p><strong>Status:</strong> <span
+                                                    th:text="${#strings.equals(denuncia.status, 'OPEN') ? 'Aberto' : #strings.equals(denuncia.status, 'IN_PROGRESS') ? 'Em progresso' : #strings.equals(denuncia.status, 'RESOLVED') ? 'Resolvido' : #strings.equals(denuncia.status, 'CANCELLED') ? 'Cancelado' : ''}"></span>
+                                            </p>
                                             <p><strong>CEP:</strong> <span th:text="${denuncia.zipCode}"></span></p>
-                                            <p><strong>URL da Foto:</strong> <a th:href="${denuncia.photoUrl}" target="_blank" th:text="${denuncia.photoUrl}"></a></p>
+                                            <p><strong>URL da Foto:</strong> <a th:href="${denuncia.photoUrl}"
+                                                                                target="_blank"
+                                                                                th:text="${denuncia.photoUrl}"></a></p>
                                             <img th:src="${denuncia.photoUrl}" class="img-fluid"/>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Fechar
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
