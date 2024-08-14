@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -53,6 +55,14 @@ public class ViewController {
         model.addAttribute("denuncias", denunciasAbertas);
 
         return "admin";
+    }
+
+    @PostMapping("/admin/updateStatus")
+    public String updateReportStatus(@RequestParam("denunciaId") Long denunciaId, @RequestParam("status") String status) {
+        Report report = reportRepository.findById(denunciaId).orElseThrow(() -> new IllegalArgumentException("Invalid report Id:" + denunciaId));
+        report.setStatus(ReportStatus.valueOf(status));
+        reportRepository.save(report);
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/report")

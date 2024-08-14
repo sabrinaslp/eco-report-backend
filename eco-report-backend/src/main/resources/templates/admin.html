@@ -111,9 +111,17 @@
                                         <div class="modal-body">
                                             <p><strong>Descrição:</strong> <span
                                                     th:text="${denuncia.description}"></span></p>
-                                            <p><strong>Status:</strong> <span
-                                                    th:text="${#strings.equals(denuncia.status, 'OPEN') ? 'Aberto' : #strings.equals(denuncia.status, 'IN_PROGRESS') ? 'Em progresso' : #strings.equals(denuncia.status, 'RESOLVED') ? 'Resolvido' : #strings.equals(denuncia.status, 'CANCELLED') ? 'Cancelado' : ''}"></span>
-                                            </p>
+                                            <p><strong>Status:</strong></p>
+                                            <form th:action="@{/admin/updateStatus}" method="post" class="d-flex align-items-center">
+                                                <input type="hidden" name="denunciaId" th:value="${denuncia.id}">
+                                                <select name="status" class="form-select me-2">
+                                                    <option value="OPEN" th:selected="${#strings.equals(denuncia.status, 'OPEN')}">Aberto</option>
+                                                    <option value="IN_PROGRESS" th:selected="${#strings.equals(denuncia.status, 'IN_PROGRESS')}">Em progresso</option>
+                                                    <option value="RESOLVED" th:selected="${#strings.equals(denuncia.status, 'RESOLVED')}">Resolvido</option>
+                                                    <option value="CANCELLED" th:selected="${#strings.equals(denuncia.status, 'CANCELLED')}">Cancelado</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-primary">Alterar</button>
+                                            </form>
                                             <p><strong>CEP:</strong> <span th:text="${denuncia.zipCode}"></span></p>
                                             <p><strong>URL da Foto:</strong> <a th:href="${denuncia.photoUrl}"
                                                                                 target="_blank"
