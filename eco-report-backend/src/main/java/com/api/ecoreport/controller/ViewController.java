@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -51,17 +52,22 @@ public class ViewController {
             userRepository.findByEmail(email).ifPresent(user -> model.addAttribute("name", user.getName()));
         }
 
-        List<Report> denunciasAbertas = reportRepository.findByStatus(ReportStatus.OPEN);
-        model.addAttribute("denuncias", denunciasAbertas);
+        model.addAttribute("denuncias", reportRepository.findAll());
 
         return "admin";
     }
 
     @PostMapping("/admin/updateStatus")
-    public String updateReportStatus(@RequestParam("denunciaId") Long denunciaId, @RequestParam("status") String status) {
-        Report report = reportRepository.findById(denunciaId).orElseThrow(() -> new IllegalArgumentException("Invalid report Id:" + denunciaId));
+    public String updateReportStatus(@RequestParam("denunciaId") Long denunciaId,
+                                     @RequestParam("status") String status,
+                                     RedirectAttributes redirectAttributes) {
+        Report report = reportRepository.findById(denunciaId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid report Id:" + denunciaId));
         report.setStatus(ReportStatus.valueOf(status));
         reportRepository.save(report);
+
+        redirectAttributes.addFlashAttribute("message", "Status da denúncia alterado com sucesso!");
+
         return "redirect:/admin/dashboard";
     }
 
@@ -89,5 +95,4 @@ public class ViewController {
     public String showInfoPage() {
         return "info";
     }
-
 }
