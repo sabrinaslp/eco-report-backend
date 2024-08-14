@@ -2,6 +2,7 @@ package com.api.ecoreport.controller;
 
 import com.api.ecoreport.model.Report;
 import com.api.ecoreport.model.User;
+import com.api.ecoreport.model.enums.ReportStatus;
 import com.api.ecoreport.repository.ReportRepository;
 import com.api.ecoreport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,10 @@ public class ViewController {
             String email = authentication.getName();
             userRepository.findByEmail(email).ifPresent(user -> model.addAttribute("name", user.getName()));
         }
+
+        List<Report> denunciasAbertas = reportRepository.findByStatus(ReportStatus.OPEN);
+        model.addAttribute("denuncias", denunciasAbertas);
+
         return "admin";
     }
 
