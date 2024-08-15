@@ -45,14 +45,22 @@ public class ViewController {
     }
 
     @GetMapping("/admin/dashboard")
-    public String showAdminPage(Model model) {
+    public String showAdminPage(@RequestParam(value = "status", required = false) String status, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
             userRepository.findByEmail(email).ifPresent(user -> model.addAttribute("name", user.getName()));
         }
 
-        model.addAttribute("denuncias", reportRepository.findAll());
+        List<Report> denuncias;
+        if (status != null && !status.isEmpty()) {
+            denuncias = reportRepository.findByStatus(ReportStatus.valueOf(status));
+        } else {
+            denuncias = reportRepository.findAll();
+        }
+
+        model.addAttribute("denuncias", denuncias);
+        model.addAttribute("status", status); // Para manter o valor selecionado
 
         return "admin";
     }

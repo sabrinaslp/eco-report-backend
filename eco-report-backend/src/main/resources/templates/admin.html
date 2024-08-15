@@ -60,16 +60,16 @@
                             <span th:text="${message}"></span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                        <form class="mb-3">
+                        <form class="mb-3" th:action="@{/admin/dashboard}" method="get">
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <label for="statusFilter" class="form-label">Filtrar por Status:</label>
-                                    <select id="statusFilter" class="form-select" th:onchange="this.form.submit()">
-                                        <option value="">Todos</option>
-                                        <option value="OPEN">Aberto</option>
-                                        <option value="IN_PROGRESS">Em progresso</option>
-                                        <option value="RESOLVED">Resolvido</option>
-                                        <option value="CANCELLED">Cancelado</option>
+                                    <select id="statusFilter" name="status" class="form-select" th:onchange="this.form.submit()">
+                                        <option value="" th:selected="${status == null}">Todos</option>
+                                        <option value="OPEN" th:selected="${status == 'OPEN'}">Aberto</option>
+                                        <option value="IN_PROGRESS" th:selected="${status == 'IN_PROGRESS'}">Em progresso</option>
+                                        <option value="RESOLVED" th:selected="${status == 'RESOLVED'}">Resolvido</option>
+                                        <option value="CANCELLED" th:selected="${status == 'CANCELLED'}">Cancelado</option>
                                     </select>
                                 </div>
                             </div>
