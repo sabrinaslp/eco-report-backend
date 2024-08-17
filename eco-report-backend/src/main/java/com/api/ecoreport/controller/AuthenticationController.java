@@ -3,12 +3,8 @@ package com.api.ecoreport.controller;
 import com.api.ecoreport.model.User;
 import com.api.ecoreport.model.enums.UserRole;
 import com.api.ecoreport.repository.UserRepository;
+import com.api.ecoreport.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +20,7 @@ public class AuthenticationController {
     private UserRepository repository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationService authenticationService;
 
     @GetMapping("/login")
     public String showLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
@@ -48,19 +41,8 @@ public class AuthenticationController {
         Optional<User> user = this.repository.findByEmail(email);
 
         if (user.isEmpty()) {
-            User newUser = new User();
-            newUser.setPassword(passwordEncoder.encode(password));
-            newUser.setEmail(email);
-            newUser.setName(name);
-            newUser.setNeighborhood(neighborhood);
-            newUser.setRole(UserRole.valueOf(role));
-
-            this.repository.save(newUser);
-
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(email, password)
-            );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            authenticationService.registerUser(email, password, name, neighborhood, UserRole.valueOf(role));
+            authenticationService.authenticateUser(email, password);
 
             redirectAttributes.addFlashAttribute("success", "Faça login para continuar.");
             return "redirect:/auth/login";
