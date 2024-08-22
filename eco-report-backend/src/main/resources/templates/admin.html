@@ -56,7 +56,8 @@
                 <div class="row login-container">
                     <div class="col-12 col-md-12 login-form">
                         <h1>Administração de Denúncias</h1>
-                        <div th:if="${message}" class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
+                        <div th:if="${message}"
+                             class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
                             <span th:text="${message}"></span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -64,12 +65,17 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <label for="statusFilter" class="form-label">Filtrar por Status:</label>
-                                    <select id="statusFilter" name="status" class="form-select" th:onchange="this.form.submit()">
+                                    <select id="statusFilter" name="status" class="form-select"
+                                            th:onchange="this.form.submit()">
                                         <option value="" th:selected="${status == null}">Todos</option>
                                         <option value="OPEN" th:selected="${status == 'OPEN'}">Aberto</option>
-                                        <option value="IN_PROGRESS" th:selected="${status == 'IN_PROGRESS'}">Em progresso</option>
-                                        <option value="RESOLVED" th:selected="${status == 'RESOLVED'}">Resolvido</option>
-                                        <option value="CANCELLED" th:selected="${status == 'CANCELLED'}">Cancelado</option>
+                                        <option value="IN_PROGRESS" th:selected="${status == 'IN_PROGRESS'}">Em
+                                            progresso
+                                        </option>
+                                        <option value="RESOLVED" th:selected="${status == 'RESOLVED'}">Resolvido
+                                        </option>
+                                        <option value="CANCELLED" th:selected="${status == 'CANCELLED'}">Cancelado
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -115,13 +121,26 @@
                                             <p><strong>Descrição:</strong> <span
                                                     th:text="${denuncia.description}"></span></p>
                                             <p><strong>Status:</strong></p>
-                                            <form th:action="@{/admin/updateStatus}" method="post" class="d-flex align-items-center">
+                                            <form th:action="@{/admin/updateStatus}" method="post"
+                                                  class="d-flex align-items-center">
                                                 <input type="hidden" name="denunciaId" th:value="${denuncia.id}">
                                                 <select name="status" class="form-select me-2">
-                                                    <option value="OPEN" th:selected="${#strings.equals(denuncia.status, 'OPEN')}">Aberto</option>
-                                                    <option value="IN_PROGRESS" th:selected="${#strings.equals(denuncia.status, 'IN_PROGRESS')}">Em progresso</option>
-                                                    <option value="RESOLVED" th:selected="${#strings.equals(denuncia.status, 'RESOLVED')}">Resolvido</option>
-                                                    <option value="CANCELLED" th:selected="${#strings.equals(denuncia.status, 'CANCELLED')}">Cancelado</option>
+                                                    <option value="OPEN"
+                                                            th:selected="${#strings.equals(denuncia.status, 'OPEN')}">
+                                                        Aberto
+                                                    </option>
+                                                    <option value="IN_PROGRESS"
+                                                            th:selected="${#strings.equals(denuncia.status, 'IN_PROGRESS')}">
+                                                        Em progresso
+                                                    </option>
+                                                    <option value="RESOLVED"
+                                                            th:selected="${#strings.equals(denuncia.status, 'RESOLVED')}">
+                                                        Resolvido
+                                                    </option>
+                                                    <option value="CANCELLED"
+                                                            th:selected="${#strings.equals(denuncia.status, 'CANCELLED')}">
+                                                        Cancelado
+                                                    </option>
                                                 </select>
                                                 <button type="submit" class="btn btn-primary">Alterar</button>
                                             </form>

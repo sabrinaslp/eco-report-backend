@@ -16,9 +16,9 @@ public class UserService {
     private UserRepository userRepository;
 
     public Optional<User> findAuthenticatedUser() {
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            String email= authentication.getName();
+            String email = authentication.getName();
             return userRepository.findByEmail(email);
         }
         return Optional.empty();

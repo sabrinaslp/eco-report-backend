@@ -13,17 +13,18 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
-    @PostMapping("/auth/report")public String createNewReport(@RequestParam("description") String description,
-            @RequestParam("photoUrl") String photoUrl,
-            @RequestParam("zipcode") String zipcode,
-            RedirectAttributes redirectAttributes) {
+    @PostMapping("/auth/report")
+    public String createNewReport(@RequestParam("description") String description,
+                                  @RequestParam("photoUrl") String photoUrl,
+                                  @RequestParam("zipcode") String zipcode,
+                                  RedirectAttributes redirectAttributes) {
 
         try {
             reportService.createNewReport(description, photoUrl, zipcode, redirectAttributes);
-            return"redirect:/home";
+            return "redirect:/home";
 
         } catch (RuntimeException e) {
-            return"redirect:/error";
+            return "redirect:/error";
         }
     }
 }

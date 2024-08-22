@@ -16,14 +16,17 @@
             top: 10px;
             right: 10px;
         }
+
         .outer-container {
             position: relative;
         }
+
         .img-preview {
             max-width: 100%;
             margin-top: 10px;
             margin-bottom: 10px;
         }
+
         .valid-icon {
             color: green;
             margin-left: 30px;
@@ -40,14 +43,18 @@
                         <h1>Descreva a sua denúncia:</h1>
                         <form th:action="@{/auth/report}" method="post" enctype="multipart/form-data">
                             <div class="mb-3 input-group">
-                                <span class="input-group-text"><span class="material-symbols-outlined">search</span></span>
+                                <span class="input-group-text"><span
+                                        class="material-symbols-outlined">search</span></span>
                                 <input type="text" class="form-control" id="description" name="description"
                                        placeholder="Descrição" required/>
                             </div>
                             <div class="mb-3 input-group">
-                                <span class="input-group-text"><span class="material-symbols-outlined">link</span></span>
-                                <input type="url" class="form-control" id="photoUrl" name="photoUrl" placeholder="URL da Foto" required oninput="validateImageUrl()"/>
-                                <span id="validIcon" class="material-symbols-outlined valid-icon" style="display: none;">check_circle</span>
+                                <span class="input-group-text"><span
+                                        class="material-symbols-outlined">link</span></span>
+                                <input type="url" class="form-control" id="photoUrl" name="photoUrl"
+                                       placeholder="URL da Foto" required oninput="validateImageUrl()"/>
+                                <span id="validIcon" class="material-symbols-outlined valid-icon"
+                                      style="display: none;">check_circle</span>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <img id="imgPreview" class="img-preview" style="display: none;"/>
@@ -82,12 +89,12 @@
 
         if (url) {
             const img = new Image();
-            img.onload = function() {
+            img.onload = function () {
                 imgPreview.src = url;
                 imgPreview.style.display = 'block';
                 validIcon.style.display = 'inline';
             }
-            img.onerror = function() {
+            img.onerror = function () {
                 imgPreview.style.display = 'none';
                 validIcon.style.display = 'none';
             }
