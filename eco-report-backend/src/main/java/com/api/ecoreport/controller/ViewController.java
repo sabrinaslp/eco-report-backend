@@ -24,6 +24,11 @@ public class ViewController {
     @Autowired
     private ReportService reportService;
 
+    @GetMapping("/")
+    public String redirectToHome() {
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public String showHomePage(Model model) {
         userService.findAuthenticatedUser().ifPresent(user -> {
