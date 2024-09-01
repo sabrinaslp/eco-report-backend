@@ -9,7 +9,7 @@
 
 ## 💡 Sobre
 
-O "Eco-Report" é um sistema desenvolvido para facilitar o registro, acompanhamento e gestão de denúncias de descarte irregular de resíduos na comunidade. O projeto visa empoderar os cidadãos ao oferecer uma plataforma intuitiva para reportar problemas ambientais, enquanto permite aos administradores monitorar e agir sobre essas denúncias de forma eficiente.
+O "Eco-Report" é um sistema desenvolvido como parte do estudo na disciplina "Programação Orientada a Objetos em Java" do 4º semestre. O objetivo principal do projeto é fornecer uma plataforma prática e intuitiva para o registro, acompanhamento e gestão de denúncias relacionadas ao descarte irregular de resíduos. O sistema visa facilitar a comunicação entre a comunidade e a companhia de coleta de lixo local, permitindo que os cidadãos reportem problemas de forma eficiente e que os administradores acompanhem e resolvam essas denúncias de maneira eficaz.
 
 ## ⚙️ Funcionalidades
 
