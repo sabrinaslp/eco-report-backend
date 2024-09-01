@@ -44,6 +44,10 @@ Fazer denúncias (usuário):
 ![Sem título](https://github.com/user-attachments/assets/b36f04f7-e759-4b03-80a9-f84aac5a1c7e)
 ![Sem título](https://github.com/user-attachments/assets/5bbd1dc8-e714-4884-8e16-08fb4b9b7829)
 
+Links úteis (usuário):
+![Sem título-1](https://github.com/user-attachments/assets/df7364ff-bac3-4611-b4ad-76535cdeb1b5)
+
+
 Administrador:
 ![Sem título](https://github.com/user-attachments/assets/a1bdc533-2dd2-489e-b10a-6eacb13dcfb9)
 
