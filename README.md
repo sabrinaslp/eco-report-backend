@@ -29,6 +29,27 @@ O **Eco-Report** suporta dois perfis de usuários, cada um com diferentes nívei
 <br>
 <br>
 
+## 💡 Telas
+
+Login:
+![Sem título](https://github.com/user-attachments/assets/babe1c7b-040e-4b15-81b8-59bfb6a72d6d)
+
+Registro de usuário:
+![Sem título](https://github.com/user-attachments/assets/d11c72bd-f698-4435-a5c0-8e8eff68d6cc)
+
+Usuário logado:
+![Sem título](https://github.com/user-attachments/assets/a9ee0138-324c-4b8c-aa4b-42fd8abf4065)
+
+Fazer denúncias (usuário):
+![Sem título](https://github.com/user-attachments/assets/b36f04f7-e759-4b03-80a9-f84aac5a1c7e)
+![Sem título](https://github.com/user-attachments/assets/5bbd1dc8-e714-4884-8e16-08fb4b9b7829)
+
+Administrador:
+![Sem título](https://github.com/user-attachments/assets/a1bdc533-2dd2-489e-b10a-6eacb13dcfb9)
+
+Alterar status (administrador):
+![Sem título](https://github.com/user-attachments/assets/28144f5c-6b3e-4251-a9c6-062745691195)
+
 ## 📝 Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
